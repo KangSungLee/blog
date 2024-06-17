@@ -1,0 +1,23 @@
+.sideBar {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.sideBar .drawerPaper {
+  width: 240px;
+}
+
+.container .container {
+  overflow: auto;
+}
+
+.container .listItemText {
+  padding-left: 16px;
+}
+
+.sideBarIcon {
+  position: fixed;
+   bottom: 20px;
+   left: 15px;
+
+}
