@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Implementation from './pages/Implementation';
 import Record from './pages/Record';
+import './css/index.css'
 
 const router = (
   <Routes>
@@ -19,7 +20,7 @@ const router = (
   </Routes>
 );
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename="/blog" >
     {router}

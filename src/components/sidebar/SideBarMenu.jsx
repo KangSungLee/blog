@@ -1,8 +1,8 @@
 import React from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
+import { ListItemButton } from '@mui/material';
 
 export default function SideBarMenu() {
   const navigate = useNavigate();
@@ -14,18 +14,18 @@ export default function SideBarMenu() {
   return (
     <div className="container">
       <List>
-        <ListItem button onClick={() => handleClick('/')}>
+        <ListItemButton onClick={() => handleClick('/')}>
           <ListItemText primary="Home" className="listItemText" />
-        </ListItem>
-        <ListItem button onClick={() => handleClick('/about')}>
+        </ListItemButton>
+        <ListItemButton onClick={() => handleClick('/about')}>
           <ListItemText primary="About" className="listItemText" />
-        </ListItem>
-        <ListItem button onClick={() => handleClick('/record')}>
+        </ListItemButton>
+        <ListItemButton onClick={() => handleClick('/record')}>
           <ListItemText primary="Record" className="listItemText" />
-        </ListItem>
-        <ListItem button onClick={() => handleClick('/implementation')}>
+        </ListItemButton>
+        <ListItemButton onClick={() => handleClick('/implementation')}>
           <ListItemText primary="Implementation" className="listItemText" />
-        </ListItem>
+        </ListItemButton>
       </List>
     </div>
   );

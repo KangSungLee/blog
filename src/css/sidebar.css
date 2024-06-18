@@ -1,10 +1,13 @@
 .sideBar {
-  width: 240px;
+  width: 300px;
   flex-shrink: 0;
+  text-align: center;
+  font-family: "MangoByeolbyeol";
 }
 
 .sideBar .drawerPaper {
-  width: 240px;
+  width: 300px;
+  text-align: center;
 }
 
 .container .container {
@@ -17,7 +20,6 @@
 
 .sideBarIcon {
   position: fixed;
-   bottom: 20px;
-   left: 15px;
-
+  bottom: 20px;
+  left: 15px;
 }

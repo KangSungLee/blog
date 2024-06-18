@@ -9,18 +9,18 @@ export default function SideBarIcon() {
   }
 
   const handleClickEmail = () => {
-    const email = 'rkdtjd1020@naver.com'; // 여기에 이메일 주소를 입력합니다.
+    const email = 'rkdtjd1020@naver.com';
     const mailtoLink = `mailto:${email}`;
     window.open(mailtoLink);
   };
 
   return (
     <div className="sideBarIcon">
-      <IconButton onClick={() => clickGitHub()}>
+      <IconButton onClick={clickGitHub}>
         <GitHubIcon />
       </IconButton>
-      <IconButton>
-        <EmailIcon onClick={handleClickEmail}/>
+      <IconButton onClick={handleClickEmail}>
+        <EmailIcon />
       </IconButton>
     </div>
   );

@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "MangoByeolbyeol";
+  font-weight: normal;
+  src: url("./MangoByeolbyeol.ttf") format("truetype");
+}
+
+body {
+  font-family: "MangoByeolbyeol";
+}
