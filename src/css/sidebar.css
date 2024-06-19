@@ -1,14 +1,15 @@
 .sideBar {
-  width: 300px;
   flex-shrink: 0;
   text-align: center;
   font-family: "MangoByeolbyeol";
+  height: 100vh;
+  background: linear-gradient(to bottom, #98D4FF, #4DA8FF);
 }
 
-.sideBar .drawerPaper {
+/* .sideBar .drawerPaper {
   width: 300px;
   text-align: center;
-}
+} */
 
 .container .container {
   overflow: auto;
@@ -16,6 +17,9 @@
 
 .container .listItemText {
   padding-left: 16px;
+  font-weight: bold;
+  color: #f0f0f0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .sideBarIcon {
