@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Outlet } from 'react-router-dom';
 import Sidebar from "./components/sidebar/SideBar";
 import { Grid } from "@mui/material";
@@ -10,18 +10,20 @@ import RedirectHandler from "./components/publics/RedirectHandler";
 export default function App() {
   return (
       // <AuthContextProvider>
-      <Grid container>
+      <>
         <RedirectHandler/>
-        <Grid item lg={2}>
-          <Sidebar />
+        <Grid container>
+          <Grid item lg={2}>
+            <Sidebar />
+          </Grid>
+          <Grid item lg={10} >
+            <TopBar/>
+            <div className="mainPage">
+              <Outlet />
+            </div>
+          </Grid>
         </Grid>
-        <Grid item lg={10} >
-          <TopBar/>
-          <div className="mainPage">
-            <Outlet />
-          </div>
-        </Grid>
-      </Grid>
+      </>
       // </AuthContextProvider>
   );
 }
