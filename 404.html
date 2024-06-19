@@ -10,10 +10,10 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>blog</title>
     <script type="text/javascript">
-        var params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
         if (!params.has('redirected')) {
-            var path = window.location.pathname;
-            var newPath = '/blog/index.html?redirected=true&path=' + encodeURIComponent(path);
+            const path = window.location.pathname;
+            const newPath = '/blog?redirected=true&path=' + encodeURIComponent(path+search);
             window.location.replace(newPath);
         }
     </script>
