@@ -14,7 +14,7 @@ export default function SideBarMenu() {
   return (
     <div className="container">
       <List>
-        <ListItemButton onClick={() => handleClick('/')}>
+        <ListItemButton onClick={() => handleClick('/home')}>
           <ListItemText primary="Home" className="listItemText" />
         </ListItemButton>
         <ListItemButton onClick={() => handleClick('/about')}>

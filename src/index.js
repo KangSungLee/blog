@@ -13,6 +13,7 @@ const router = (
   <Routes>
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
+      <Route path="/home" element={<Home/>} />
       <Route path="/about" element={<About/>} />
       <Route path="/record" element={<Record/>} />
       <Route path="/implementation" element={<Implementation/>} />
