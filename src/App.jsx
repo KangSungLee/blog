@@ -4,6 +4,7 @@ import Sidebar from "./components/sidebar/SideBar";
 import { Grid } from "@mui/material";
 import TopBar from "./components/topbar/TopBar";
 import "./css/app.css"
+import RedirectHandler from "./components/publics/RedirectHandler";
 // import { AuthContextProvider } from './context/AuthContext';
 
 export default function App() {
