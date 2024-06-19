@@ -1,25 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; URL='./index.html'" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>blog</title>
-    <script type="text/javascript">
-        let params = new URLSearchParams(window.location.search);
-        if (!params.has('redirected')) {
-            let path = window.location.pathname;
-            let newPath = '/blog?redirected=true&path=' + encodeURIComponent(path+search);
-            window.location.replace(newPath);
-        }
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      if (!params.has('redirected')) {
+        const path = window.location.pathname;
+        const search = window.location.search;
+        const newPath = '/blog?redirected=true&path=' + encodeURIComponent(path+search);
+        window.location.replace(newPath);
+      }
     </script>
-</head>
-<body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-</body>
+  </head>
+  <body>
+  </body>
 </html>
