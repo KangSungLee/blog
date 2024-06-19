@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/blog/static/css/main.7e3e78b9.css",
+    "main.js": "/blog/static/js/main.84f1e933.js",
+    "static/js/453.4d1e5ba5.chunk.js": "/blog/static/js/453.4d1e5ba5.chunk.js",
+    "static/media/MangoByeolbyeol.ttf": "/blog/static/media/MangoByeolbyeol.c4a3a224020afce4f488.ttf",
+    "index.html": "/blog/index.html",
+    "main.7e3e78b9.css.map": "/blog/static/css/main.7e3e78b9.css.map",
+    "main.84f1e933.js.map": "/blog/static/js/main.84f1e933.js.map",
+    "453.4d1e5ba5.chunk.js.map": "/blog/static/js/453.4d1e5ba5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7e3e78b9.css",
+    "static/js/main.84f1e933.js"
+  ]
+}
