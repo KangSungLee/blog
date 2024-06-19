@@ -10,6 +10,7 @@ export default function App() {
   return (
       // <AuthContextProvider>
       <Grid container>
+        <RedirectHandler/>
         <Grid item lg={2}>
           <Sidebar />
         </Grid>

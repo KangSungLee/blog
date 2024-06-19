@@ -21,7 +21,7 @@ const ImplementationList = () => {
     return (
         <div>
             <ul style={{ display: 'flex', listStyleType: 'none', padding: 0 }}>
-                {pages.map(page => (
+                {pages.map(page => (    
                     <li key={page.path} style={{ marginRight: 10 }}>
                         <button onClick={() => handlePageClick(page)}>{page.title}</button>
                     </li>
