@@ -1,11 +1,12 @@
 import React from "react";
 import { Container } from "@mui/material";
-import ImplementationList from "../components/implementation/ImplementationList";
+import ImplementationPage from "../components/implementation/ImplementationPage";
+
 
 export default function Implementation() {
   return (
       <Container>
-        <ImplementationList/>
+        <ImplementationPage/>
       </Container>
   );
 }

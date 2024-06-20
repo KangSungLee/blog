@@ -23,7 +23,7 @@ export default function SideBarMenu() {
         <ListItemButton onClick={() => handleClick('/record')}>
           <ListItemText primary="Record" className="listItemText" />
         </ListItemButton>
-        <ListItemButton onClick={() => handleClick('/implementation')}>
+        <ListItemButton onClick={() => handleClick('/implementationPage')}>
           <ListItemText primary="Implementation" className="listItemText" />
         </ListItemButton>
       </List>
