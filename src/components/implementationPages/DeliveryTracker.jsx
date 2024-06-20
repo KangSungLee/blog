@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { Grid, Link } from '@mui/material';
+import React, { useState } from 'react';
 
 function DeliveryTracker() {
   const [waybill, setWaybill] = useState('');
   const [deliveryInfo, setDeliveryInfo] = useState();
   const TRACKER_URL = 'https://apis.tracker.delivery';
-  const carrierIdAry = ['kr.cjlogistics', 'kr.epost', 'kr.lotte', 'kr.logen', 'kr.hanjin'];
+  const carrierIdAry = [
+    'kr.cjlogistics', 'kr.epost', 'kr.lotte', 'kr.logen', 'kr.hanjin', 'kr.cupost', 'kr.swgexp.cjlogistics',
+    'cn.cainiao.global', 'de.dhl', 'jp.sagawa', 'jp.yamato', 'kr.actcore.ocean-inbound', 'kr.coupangls',
+    'kr.chunilps', 'kr.cvsnet', 'kr.cway', 'kr.daesin', 'kr.epantos', 'kr.epost.ems', 'kr.goodstoluck',
+    'kr.homepick', 'kr.honamlogis', 'kr.ilyanglogis', 'kr.kdexp', 'kr.kunyoung', 'kr.lotte.global', 'kr.ltl',
+    'kr.slx', 'kr.swgexp.epost', 'kr.todaypickup', 'kr.yongmalogis', 'nl.tnt', 'un.upu.ems', 'us.fedex', 'us.ups',
+    'us.usps', 'kr.hanips', 'kr.hdexp', 'jp.yuubin'
+  ];
 
   const callLogAPI = async () => {
     try {
@@ -77,22 +85,30 @@ function DeliveryTracker() {
   };
 
   return (
-    <div>
-      <div className="form-group">
-        <label htmlFor="t_invoice">운송장 번호</label>
-        <input type="text" className="form-control" placeholder="운송장 번호" onChange={handleWaybillChange} />
+    <Grid container>
+      <Grid item lg={6}>
+      <div>
+        <label>운송장 번호</label>
+        <input type="text" placeholder="운송장 번호" onChange={handleWaybillChange} style={{marginLeft:10}}/>
       </div>
-      <button type="submit" className="btn btn-default" onClick={deliveryTracking}>
+      <button type="submit" onClick={deliveryTracking} style={{marginTop:5}}>
         조회하기
       </button>
       {deliveryInfo && (
         <div>
           <h2>배송 정보</h2>
-          <p>택배사: {deliveryInfo.carrierId}</p>
+          <p>택배 코드: {deliveryInfo.carrierId}</p>
           <p>현재 상태: {deliveryInfo.status}</p>
         </div>
       )}
-    </div>
+      </Grid>
+      <Grid item lg={6}>
+        <p>운송장번호 입력시 저장 되어 있는 택배사는 자동으로 조회됩니다.</p>
+        <Link href="https://tracker.delivery/carriers" target="_blank" rel="noopener noreferrer">
+          지원되는 택배사
+        </Link>
+      </Grid>
+    </Grid>
   );
 }
 
