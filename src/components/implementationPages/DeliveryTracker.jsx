@@ -81,7 +81,7 @@ function DeliveryTracker() {
     const left = (window.innerWidth - width) / 2;
     const top = (window.innerHeight - height) / 2;
     const specs = `width=${width}, height=${height}, left=${left}, top=${top}`;
-    window.open(`https://tracker.delivery/#/${id}/${waybill}`, "_blank", specs);
+    window.open(`https://tracker.delivery/#/${id}/${waybill.toString().replace(/-/g, '')}`, "_blank", specs);
   };
 
   return (
