@@ -1,9 +1,10 @@
-import { Grid, Link } from '@mui/material';
+import { Grid, Link, CircularProgress } from '@mui/material';
 import React, { useState } from 'react';
 
 function DeliveryTracker() {
   const [waybill, setWaybill] = useState('');
   const [deliveryInfo, setDeliveryInfo] = useState();
+  const [loading, setLoading] = useState(false);
   const TRACKER_URL = 'https://apis.tracker.delivery';
   const carrierIdAry = [
     'kr.cjlogistics', 'kr.epost', 'kr.lotte', 'kr.logen', 'kr.hanjin', 'kr.cupost', 'kr.swgexp.cjlogistics',
@@ -15,6 +16,7 @@ function DeliveryTracker() {
   ];
 
   const callLogAPI = async () => {
+    setLoading(true);
     try {
       for (const id of carrierIdAry) {
         const response = await fetch(`${TRACKER_URL}/carriers/${id}/tracks/${waybill.toString().replace(/-/g, '')}`);
@@ -22,7 +24,8 @@ function DeliveryTracker() {
           const data = await response.json();
           if (!data.message) {
             processDeliveryData(data, id);
-            deliveryTrackingNewWindow(id)
+            deliveryTrackingNewWindow(id);
+            setLoading(false);
             return;
           }
         } else {
@@ -40,8 +43,10 @@ function DeliveryTracker() {
         company: '',
         allProgress: [],
       });
+      setLoading(false);
     } catch (error) {
       console.log('error', error);
+      setLoading(false);
     }
   };
 
@@ -87,20 +92,26 @@ function DeliveryTracker() {
   return (
     <Grid container>
       <Grid item lg={6}>
-      <div>
-        <label>운송장 번호</label>
-        <input type="text" placeholder="운송장 번호" onChange={handleWaybillChange} style={{marginLeft:10}}/>
-      </div>
-      <button type="submit" onClick={deliveryTracking} style={{marginTop:5}}>
-        조회하기
-      </button>
-      {deliveryInfo && (
         <div>
-          <h2>배송 정보</h2>
-          <p>택배 코드: {deliveryInfo.carrierId}</p>
-          <p>현재 상태: {deliveryInfo.status}</p>
+          <label>운송장 번호</label>
+          <input type="text" placeholder="운송장 번호" onChange={handleWaybillChange} style={{marginLeft: 10}} />
         </div>
-      )}
+        <button type="submit" onClick={deliveryTracking} style={{marginTop: 5}}>
+          조회하기
+        </button>
+        {loading ? (
+          <div style={{marginTop: 20}}>
+            <CircularProgress />
+          </div>
+        ) : (
+          deliveryInfo && (
+            <div>
+              <h2>배송 정보</h2>
+              <p>택배 코드: {deliveryInfo.carrierId}</p>
+              <p>현재 상태: {deliveryInfo.status}</p>
+            </div>
+          )
+        )}
       </Grid>
       <Grid item lg={6}>
         <p>운송장번호 입력시 저장 되어 있는 택배사는 자동으로 조회됩니다.</p>
