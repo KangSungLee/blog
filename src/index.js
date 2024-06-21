@@ -9,6 +9,7 @@ import Record from './pages/Record';
 import './css/index.css';
 import Implementation from './pages/Implementation';
 import ImplementationDetail from './pages/ImplementationDetail';
+import SearchList from './pages/SearchList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
         <Route path="record" element={<Record />} />
         <Route path="implementationPage" element={<Implementation/>} />
         <Route path="implementationPage/:pagePath" element={<ImplementationDetail />} />
+        <Route path="SearchList/:searchWord" element={<SearchList />} />
       </Route>
     </Routes>
   </BrowserRouter>
