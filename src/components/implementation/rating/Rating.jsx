@@ -87,7 +87,7 @@ const Rating = () => {
         step="0.1" 
         placeholder="Enter popularity score"
       />
-      <span style={{marginLeft: 10}}>{popularity.toFixed(1)}</span><span> 점aws</span>
+      <span style={{marginLeft: 10}}>{popularity.toFixed(1)}</span><span> 점</span>
     </div>
   );
 };

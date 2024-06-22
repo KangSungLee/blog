@@ -1,30 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Pagination from '@mui/material/Pagination';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import pagesData from './pagesData'; 
 
-const ImplementationPage = () => {
-    const { pagePath } = useParams();
-    const [page, setPage] = useState(null);
+const ITEMS_PER_PAGE = 5;
 
-    useEffect(() => {
-        const foundPage = pagesData.find(p => p.path === `/implementationPage/${pagePath}`);
-        setPage(foundPage);
-    }, [pagePath]);
+const ImplementationList = () => {
+    const [currentPage, setCurrentPage] = useState(1);  
+    const totalPages = Math.ceil(pagesData.length / ITEMS_PER_PAGE);
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const selectedPages = pagesData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
     return (
-        <Box>
-            {page ? (
-                <>
-                    <Typography variant="h4" gutterBottom>{page.title}</Typography>
-                    <page.component />
-                </>
-            ) : (
-                <Typography variant="h6">페이지를 찾을 수 없습니다.</Typography>
-            )}
+        <Box display="flex" flexDirection="column" alignItems="center">
+            {selectedPages.map(page => (
+                <Box key={page.path} marginBottom={2} border="1px solid #ddd" padding={2} width="50%">
+                    <Link to={page.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Typography variant="h6">{page.title}</Typography>
+                    </Link>
+                </Box>
+            ))}
+            <Pagination 
+                count={totalPages} 
+                page={currentPage} 
+                onChange={handlePageChange} 
+                variant="outlined" 
+                shape="rounded" 
+                sx={{ marginTop: 2, margin: 'auto' }}
+            />
         </Box>
     );
 };
 
-export default ImplementationPage;
+export default ImplementationList;  

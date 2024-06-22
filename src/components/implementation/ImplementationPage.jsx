@@ -2,20 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useParams } from "react-router-dom";
+import pagesData from './pagesData'; 
 
 const ImplementationPage = () => {
     const { pagePath } = useParams();
     const [page, setPage] = useState(null);
 
     useEffect(() => {
-        const pagesContext = require.context('../../pages/implementationPages', false, /\.jsx$/);
-        const pages = pagesContext.keys().map(key => ({
-            path: key.replace('./', '/implementationPage/').replace('.jsx', ''),
-            title: key.replace('./', '').replace('.jsx', '').replace(/([A-Z])/g, ' $1').trim(),
-            component: pagesContext(key).default
-        }));
-
-        const foundPage = pages.find(p => p.path === `/implementationPage/${pagePath}`);
+        const foundPage = pagesData.find(p => p.path === `/implementationPage/${pagePath}`);
         setPage(foundPage);
     }, [pagePath]);
 
