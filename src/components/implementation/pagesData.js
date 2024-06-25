@@ -3,7 +3,7 @@ const pagesData = pagesContext.keys().map(key => ({
     path: key.replace('./', '/implementationPage/').replace('.jsx', ''),
     title: key.replace('./', '').replace('.jsx', '').replace(/([A-Z])/g, ' $1').trim(),
     component: pagesContext(key).default,
-    // content: pagesContext(key).default.toString()
+    content: pagesContext(key).default.toString()
 }));
 
 export default pagesData;

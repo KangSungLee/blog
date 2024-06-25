@@ -21,7 +21,7 @@ const Search = () => {
     useEffect(() => {
         const newFilteredPages = pagesData.filter(page =>
             page.title.toLowerCase().includes(searchTerm.toLowerCase()) 
-            // || page.content.toLowerCase().includes(searchTerm.toLowerCase())
+            || page.content.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredPages(newFilteredPages);
     }, [searchTerm]);
