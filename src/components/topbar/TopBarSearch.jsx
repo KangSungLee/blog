@@ -15,7 +15,7 @@ export default function TopBarSearch() {
     }
 
     return (
-        <div className="searchContainer">
+        <form className="searchContainer" onSubmit={() => searchClick()}>
             <input 
                 type="text" 
                 placeholder="검색어를 입력하세요" 
@@ -23,9 +23,9 @@ export default function TopBarSearch() {
                 onChange={handleSearchChange}
                 value={searchWord}
             />
-            <button className="searchButton" onClick={() => searchClick()}>
+            <button className="searchButton" type="submit">
                 <SearchIcon />
             </button>
-        </div>
+        </form>
     );
 }

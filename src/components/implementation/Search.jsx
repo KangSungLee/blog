@@ -26,7 +26,7 @@ const Search = () => {
         setFilteredPages(newFilteredPages);
     }, [searchTerm]);
 
-    const handlePageChange = (value) => {
+    const handlePageChange = (event, value) => {
         setCurrentPage(value);
     };
 

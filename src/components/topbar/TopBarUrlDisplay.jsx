@@ -6,7 +6,7 @@ export default function TopBarUrlDisplay() {
 
     return (
         <div className="urlDisplay">
-            {location.pathname}
+            {decodeURIComponent(location.pathname)}
         </div>
     );
 }
