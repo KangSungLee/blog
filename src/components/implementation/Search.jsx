@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { ref, onValue } from 'firebase/database';
+import { database } from '../../api/firebase';
 import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import pagesData from "./pagesData";
 
 const ITEMS_PER_PAGE = 5;
@@ -12,6 +15,7 @@ const Search = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filteredPages, setFilteredPages] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setSearchTerm(searchWord);
@@ -19,11 +23,25 @@ const Search = () => {
     }, [searchWord]);
 
     useEffect(() => {
-        const newFilteredPages = pagesData.filter(page =>
-            page.title.toLowerCase().includes(searchTerm.toLowerCase()) 
-            || page.content.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredPages(newFilteredPages);
+        const recordsRef = ref(database, 'records');
+        setLoading(true);
+        
+        const unsubscribe = onValue(recordsRef, (snapshot) => {
+            const data = snapshot.val();
+            const recordsArray = data ? Object.keys(data).map((key) => ({ id: key, ...data[key] })) : [];
+
+            const newFilteredPages = [
+                ...pagesData,
+                ...recordsArray
+            ].filter(page =>
+                page.title.toLowerCase().includes(searchTerm.toLowerCase()) 
+                || page.content.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredPages(newFilteredPages);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
     }, [searchTerm]);
 
     const handlePageChange = (event, value) => {
@@ -36,21 +54,33 @@ const Search = () => {
 
     return (
         <Box display="flex" flexDirection="column" alignItems="center">
-            {selectedPages.map(page => (
-                <Box key={page.path} marginBottom={2} border="1px solid #ddd" padding={2} width="50%">
-                    <Link to={page.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <Typography variant="h6">{page.title}</Typography>
-                    </Link>
-                </Box>
-            ))}
-            <Pagination 
-                count={totalFilteredPages} 
-                page={currentPage} 
-                onChange={handlePageChange} 
-                variant="outlined" 
-                shape="rounded" 
-                sx={{ marginTop: 2, margin: 'auto' }}
-            />
+            {loading ? (
+                <CircularProgress />
+            ) : (
+                <>
+                    {selectedPages.length === 0 ? (
+                        <Typography variant="h6">검색 결과가 없습니다.</Typography>
+                    ) : (
+                        selectedPages.map(page => (
+                            <Box key={page.id || page.path} marginBottom={2} border="1px solid #ddd" padding={2} width="50%">
+                                <Link to={page.path || `/record/${page.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <Typography variant="h6">{page.title}</Typography>
+                                </Link>
+                            </Box>
+                        ))
+                    )}
+                    {selectedPages.length > 0 && (
+                        <Pagination 
+                            count={totalFilteredPages} 
+                            page={currentPage} 
+                            onChange={handlePageChange} 
+                            variant="outlined" 
+                            shape="rounded" 
+                            sx={{ marginTop: 2, margin: 'auto' }}
+                        />
+                    )}
+                </>
+            )}
         </Box>
     );
 };

@@ -10,12 +10,13 @@ export default function TopBarSearch() {
         setSearchWord(e.target.value);
     };
 
-    const searchClick = () => {
-        navigate(`/searchList/${searchWord}`)
-    }
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/searchList/${searchWord}`);
+    };
 
     return (
-        <form className="searchContainer" onSubmit={() => searchClick()}>
+        <form className="searchContainer" onSubmit={handleSearchSubmit}>
             <input 
                 type="text" 
                 placeholder="검색어를 입력하세요" 
@@ -23,7 +24,7 @@ export default function TopBarSearch() {
                 onChange={handleSearchChange}
                 value={searchWord}
             />
-            <button className="searchButton" type="submit">
+            <button className="searchButton" type="button" onClick={handleSearchSubmit}>
                 <SearchIcon />
             </button>
         </form>

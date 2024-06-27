@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { ref, onValue, remove } from 'firebase/database';
 import { database } from '../../api/firebase';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, CircularProgress  } from '@mui/material';
 import RecordTable from './RecordTable';
 import RecordPagination from './RecordPagination';
 import swal from 'sweetalert';
 
 const RecordList = () => {
   const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(5);
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const RecordList = () => {
       const recordsArray = data ? Object.keys(data).map((key) => ({ id: key, ...data[key] })) : [];
       recordsArray.sort((a, b) => b.createdAt - a.createdAt);
       setRecords(recordsArray);
+      setLoading(false);
     });
   }, []);
 
@@ -63,8 +65,17 @@ const RecordList = () => {
       <Button variant="contained" color="primary" onClick={createRecord} sx={{ mb: 2 }}>
         글 작성
       </Button>
-      <RecordTable records={currentRecords} indexOfFirstRecord={indexOfFirstRecord} deleteRecord={deleteRecord}/>
-      <RecordPagination totalPages={totalPages} currentPage={currentPage} handleChangePage={handleChangePage} />
+      {loading ? (
+        <>
+          <br/>
+          <CircularProgress />
+        </>
+      ) : (
+        <>
+          <RecordTable records={currentRecords} indexOfFirstRecord={indexOfFirstRecord} deleteRecord={deleteRecord}/>
+          <RecordPagination totalPages={totalPages} currentPage={currentPage} handleChangePage={handleChangePage} />
+        </>
+      )}
     </Box>
   );
 };
