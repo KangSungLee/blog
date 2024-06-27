@@ -25,10 +25,14 @@ const Search = () => {
     useEffect(() => {
         const recordsRef = ref(database, 'records');
         setLoading(true);
-        
+
+        console.log("Loading pagesData:", pagesData); // Add this log
+
         const unsubscribe = onValue(recordsRef, (snapshot) => {
             const data = snapshot.val();
             const recordsArray = data ? Object.keys(data).map((key) => ({ id: key, ...data[key] })) : [];
+
+            console.log("Firebase data:", recordsArray); // Add this log
 
             const newFilteredPages = [
                 ...pagesData,
