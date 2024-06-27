@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { database } from '../../api/firebase'; 
 import { useParams } from 'react-router-dom';
+import { Box, Typography, Paper, CircularProgress } from '@mui/material';
 
 const RecordDetail = () => {
   const { recordId } = useParams();
@@ -15,16 +16,22 @@ const RecordDetail = () => {
   }, [recordId]);
 
   return (
-    <div>
+    <Box sx={{ width: '80%', margin: 'auto', mt: 4 }}>
       {record ? (
-        <>
-          <h2>{record.title}</h2>
-          <p>{record.content}</p>
-        </>
+        <Paper elevation={3} sx={{ p: 4 }}>
+          <Typography variant="h4" gutterBottom>
+            {record.title}
+          </Typography>
+          <Typography variant="body1">
+            {record.content}
+          </Typography>
+        </Paper>
       ) : (
-        <p>Loading...</p>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 
