@@ -3,6 +3,7 @@ import { ref, push, set } from 'firebase/database';
 import { database } from '../../api/firebase';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography } from '@mui/material';
+import swal from 'sweetalert';
 
 const CreateRecord = () => {
   const [title, setTitle] = useState('');
@@ -18,6 +19,10 @@ const CreateRecord = () => {
       title,
       content,
       createdAt: Date.now(),
+    }).then(() => {
+      swal("작성되었습니다!", {
+        icon: "success",
+      });
     });
 
     setTitle('');

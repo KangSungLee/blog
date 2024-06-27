@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Pagination from '@mui/material/Pagination';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Pagination, Box, Typography, Paper } from '@mui/material';
 import pagesData from './pagesData'; 
 
 const ITEMS_PER_PAGE = 5;
@@ -19,13 +17,18 @@ const ImplementationList = () => {
     const selectedPages = pagesData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
     return (
-        <Box display="flex" flexDirection="column" alignItems="center">
+        <Box sx={{ width: '80%', margin: 'auto', mt: 4 }}>
+            <Typography variant="h4" gutterBottom align="center">
+                Implementation List
+            </Typography>
             {selectedPages.map(page => (
-                <Box key={page.path} marginBottom={2} border="1px solid #ddd" padding={2} width="50%">
+                <Paper key={page.path} sx={{ mb: 2, p: 2 }}>
                     <Link to={page.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <Typography variant="h6">{page.title}</Typography>
+                        <Typography variant="h6">
+                            {page.title}
+                        </Typography>
                     </Link>
-                </Box>
+                </Paper>
             ))}
             <Pagination 
                 count={totalPages} 
@@ -33,10 +36,11 @@ const ImplementationList = () => {
                 onChange={handlePageChange} 
                 variant="outlined" 
                 shape="rounded" 
-                sx={{ marginTop: 2, margin: 'auto' }}
+                color="primary"
+                sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}
             />
         </Box>
     );
 };
 
-export default ImplementationList;  
+export default ImplementationList;

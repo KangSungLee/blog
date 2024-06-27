@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button } from '@mui/material';
 import RecordTable from './RecordTable';
 import RecordPagination from './RecordPagination';
+import swal from 'sweetalert';
 
 const RecordList = () => {
   const [records, setRecords] = useState([]);
@@ -23,9 +24,22 @@ const RecordList = () => {
   }, []);
 
   const deleteRecord = (id) => {
-    const recordRef = ref(database, `records/${id}`);
-    remove(recordRef);
-    setRecords((prevRecords) => prevRecords.filter((record) => record.id !== id));
+    swal({
+      title: "정말로 삭제하시겠습니까?",
+      text: "이 작업은 되돌릴 수 없습니다!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const recordRef = ref(database, `records/${id}`);
+        remove(recordRef);
+        setRecords((prevRecords) => prevRecords.filter((record) => record.id !== id));
+        swal("삭제되었습니다!", {
+          icon: "success",
+        });
+      }
+    });
   };
 
   const createRecord = () => {
@@ -49,7 +63,7 @@ const RecordList = () => {
       <Button variant="contained" color="primary" onClick={createRecord} sx={{ mb: 2 }}>
         글 작성
       </Button>
-      <RecordTable records={currentRecords} indexOfFirstRecord={indexOfFirstRecord} />
+      <RecordTable records={currentRecords} indexOfFirstRecord={indexOfFirstRecord} deleteRecord={deleteRecord}/>
       <RecordPagination totalPages={totalPages} currentPage={currentPage} handleChangePage={handleChangePage} />
     </Box>
   );
