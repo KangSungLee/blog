@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import pagesData from "./pagesData";
 
+// 현재 페이지스데이타랑 리얼타임데이터 검색시 영어는 동시검색가능 한글은 페이지스데이터 인식x
+
 const ITEMS_PER_PAGE = 5;
 
 const Search = () => {
@@ -26,21 +28,28 @@ const Search = () => {
         const recordsRef = ref(database, 'records');
         setLoading(true);
 
-        console.log("Loading pagesData:", pagesData); // Add this log
-
         const unsubscribe = onValue(recordsRef, (snapshot) => {
             const data = snapshot.val();
             const recordsArray = data ? Object.keys(data).map((key) => ({ id: key, ...data[key] })) : [];
 
-            console.log("Firebase data:", recordsArray); // Add this log
+            const normalizedRecords = recordsArray.map(record => ({
+                id: record.id,
+                title: record.title.normalize('NFC'),
+                content: record.content.normalize('NFC')
+            }));
 
             const newFilteredPages = [
-                ...pagesData,
-                ...recordsArray
+                ...pagesData.map(page => ({
+                    ...page,
+                    title: page.title.normalize('NFC'),
+                    content: page.content.normalize('NFC')
+                })),
+                ...normalizedRecords
             ].filter(page =>
                 page.title.toLowerCase().includes(searchTerm.toLowerCase()) 
                 || page.content.toLowerCase().includes(searchTerm.toLowerCase())
             );
+
             setFilteredPages(newFilteredPages);
             setLoading(false);
         });
