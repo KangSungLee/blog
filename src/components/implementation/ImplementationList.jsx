@@ -18,7 +18,7 @@ const ImplementationList = () => {
 
     return (
         <Box sx={{ width: '80%', margin: 'auto', mt: 4 }}>
-            <Typography variant="h4" gutterBottom align="center">
+            <Typography variant="h4" gutterBottom >
                 Implementation List
             </Typography>
             {selectedPages.map(page => (

@@ -22,9 +22,11 @@ const RecordDetail = () => {
           <Typography variant="h4" gutterBottom>
             {record.title}
           </Typography>
-          <Typography variant="body1">
-            {record.content}
-          </Typography>
+          <Typography 
+            variant="body1" 
+            component="div"
+            dangerouslySetInnerHTML={{ __html: record.content }}
+          />
         </Paper>
       ) : (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>

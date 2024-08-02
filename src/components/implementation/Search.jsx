@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ref, onValue } from 'firebase/database';
 import { database } from '../../api/firebase';
-import Pagination from '@mui/material/Pagination';
+import { Pagination } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import pagesData from "./pagesData";
-
-// 현재 페이지스데이타랑 리얼타임데이터 검색시 영어는 동시검색가능 한글은 페이지스데이터 인식x
 
 const ITEMS_PER_PAGE = 5;
 
@@ -74,22 +79,36 @@ const Search = () => {
                     {selectedPages.length === 0 ? (
                         <Typography variant="h6">검색 결과가 없습니다.</Typography>
                     ) : (
-                        selectedPages.map(page => (
-                            <Box key={page.id || page.path} marginBottom={2} border="1px solid #ddd" padding={2} width="50%">
-                                <Link to={page.path || `/record/${page.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <Typography variant="h6">{page.title}</Typography>
-                                </Link>
-                            </Box>
-                        ))
+                        <TableContainer component={Paper} sx={{ maxWidth: 800, margin: 'auto' }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>순번</TableCell>
+                                        <TableCell>제목</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {selectedPages.map((page, index) => (
+                                        <TableRow key={page.id || page.path}>
+                                            <TableCell>{startIndex + index + 1}</TableCell>
+                                            <TableCell>
+                                                <Link to={page.path || `/record/${page.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                                    {page.title}
+                                                </Link>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     )}
                     {selectedPages.length > 0 && (
                         <Pagination 
                             count={totalFilteredPages} 
                             page={currentPage} 
                             onChange={handlePageChange} 
-                            variant="outlined" 
-                            shape="rounded" 
-                            sx={{ marginTop: 2, margin: 'auto' }}
+                            color="primary"
+                            sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}
                         />
                     )}
                 </>
